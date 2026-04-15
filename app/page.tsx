@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import PhotoUpload from "./photo-upload";
 
 const STORE_NAME = "KRAVE Zamboanga";
@@ -46,22 +45,6 @@ const socials = [
 ];
 
 export default function Home() {
-  const [feedback, setFeedback] = useState("");
-  const [feedbackSent, setFeedbackSent] = useState(false);
-
-  function handleSendFeedback() {
-    if (!feedback.trim()) return;
-    const encoded = encodeURIComponent(
-      `Feedback/Suggestion for ${STORE_NAME}:\n\n${feedback.trim()}`
-    );
-    window.open(
-      `https://www.messenger.com/t/kravezamboanga?text=${encoded}`,
-      "_blank"
-    );
-    setFeedbackSent(true);
-    setFeedback("");
-  }
-
   return (
     <div className="flex flex-col min-h-full">
       {/* Hero */}
@@ -73,6 +56,19 @@ export default function Home() {
       </header>
 
       <main className="flex-1 max-w-md mx-auto w-full px-4 py-8 space-y-10">
+        {/* Photo Upload */}
+        <section className="space-y-3">
+          <h2 className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide">
+            Share Your Photos
+          </h2>
+          <p className="text-center text-sm text-gray-500 leading-relaxed">
+            We&apos;d love a copy of your photos! As a small business, it means
+            the world when you share your memories with us — we may feature them
+            on our socials to help others discover KRAVE too. Thank you!
+          </p>
+          <PhotoUpload />
+        </section>
+
         {/* Social Links */}
         <section className="space-y-3">
           <h2 className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide">
@@ -94,19 +90,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Photo Upload */}
-        <section className="space-y-3">
-          <h2 className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide">
-            Share Your Photos
-          </h2>
-          <p className="text-center text-sm text-gray-500 leading-relaxed">
-            We&apos;d love a copy of your photos! As a small business, it means
-            the world when you share your memories with us — we may feature them
-            on our socials to help others discover KRAVE too. Thank you!
-          </p>
-          <PhotoUpload />
-        </section>
-
         {/* Feedback */}
         <section className="space-y-3">
           <h2 className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide">
@@ -115,28 +98,17 @@ export default function Home() {
           <p className="text-center text-sm text-gray-400">
             Got feedback? We&apos;d love to hear from you.
           </p>
-          <textarea
-            placeholder="Type your message..."
-            value={feedback}
-            onChange={(e) => {
-              setFeedback(e.target.value);
-              setFeedbackSent(false);
-            }}
-            rows={3}
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sakura-light focus:border-sakura resize-none"
-          />
-          <button
-            onClick={handleSendFeedback}
-            disabled={!feedback.trim()}
-            className="w-full bg-sakura text-white font-semibold py-3 rounded-full text-sm hover:bg-sakura-dark transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          <a
+            href="https://www.messenger.com/t/kravezamboanga"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-3 w-full py-3.5 rounded-full text-white font-semibold text-base bg-[#0084ff] hover:bg-[#0073e6] transition-colors"
           >
-            Send via Messenger
-          </button>
-          {feedbackSent && (
-            <p className="text-xs text-green-600 text-center">
-              Thanks for your feedback!
-            </p>
-          )}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.907 1.453 5.497 3.727 7.191V22l3.414-1.876c.91.252 1.876.388 2.859.388 5.523 0 10-4.145 10-9.243S17.523 2 12 2zm1.07 12.449-2.545-2.714-4.97 2.714 5.467-5.804 2.609 2.714 4.906-2.714-5.467 5.804z" />
+            </svg>
+            Chat with us on Messenger
+          </a>
         </section>
       </main>
 
